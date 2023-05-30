@@ -107,6 +107,7 @@ const UI = {
         UI.addMachineHandlers();
         UI.addConnectionControlHandlers();
         UI.addClipboardHandlers();
+        UI.addFileTransferHandlers();
         UI.addSettingsHandlers();
         document.getElementById("noVNC_status")
             .addEventListener('click', UI.hideStatus);
@@ -337,6 +338,11 @@ const UI = {
             .addEventListener('click', UI.toggleClipboardPanel);
         document.getElementById("noVNC_clipboard_text")
             .addEventListener('change', UI.clipboardSend);
+    },
+
+    addFileTransferHandlers() {
+        document.getElementById("noVNC_clipboard_button")
+            .addEventListener('click', UI.toggleFilePanel);
     },
 
     // Add a call to save settings when the element changes,
@@ -985,6 +991,38 @@ const UI = {
 
 /* ------^-------
  *  /CLIPBOARD
+ * ==============
+ *  FILETRANSFER
+ * ------v------*/
+
+    openFilePanel() {
+        UI.closeAllPanels();
+        UI.openControlbar();
+
+        document.getElementById('noVNC_filetransfer')
+            .classList.add("noVNC_open");
+        document.getElementById('noVNC_filetransfer_button')
+            .classList.add("noVNC_selected");
+    },
+
+    closeFilePanel() {
+        document.getElementById('noVNC_filetransfer')
+            .classList.remove("noVNC_open");
+        document.getElementById('noVNC_filetransfer_button')
+            .classList.remove("noVNC_selected");
+    },
+
+    toggleFilePanel() {
+        if (document.getElementById('noVNC_filetransfer')
+            .classList.contains("noVNC_open")) {
+            UI.closeFilePanel();
+        } else {
+            UI.openFilePanel();
+        }
+    },
+
+/* ------^-------
+ *  /FILETRANSFER
  * ==============
  *  CONNECTION
  * ------v------*/
@@ -1704,12 +1742,16 @@ const UI = {
                 .classList.add('noVNC_hidden');
             document.getElementById('noVNC_clipboard_button')
                 .classList.add('noVNC_hidden');
+            document.getElementById('noVNC_filetransfer_button')
+                .classList.add('noVNC_hidden');
         } else {
             document.getElementById('noVNC_keyboard_button')
                 .classList.remove('noVNC_hidden');
             document.getElementById('noVNC_toggle_extra_keys_button')
                 .classList.remove('noVNC_hidden');
             document.getElementById('noVNC_clipboard_button')
+                .classList.remove('noVNC_hidden');
+            document.getElementById('noVNC_filetransfer_button')
                 .classList.remove('noVNC_hidden');
         }
     },
