@@ -1,0 +1,1 @@
+node websockify.js --web E:\test\remote_desktop_resource\noVNC\node_modules\noVNC 6080 100.78.214.131:5900
