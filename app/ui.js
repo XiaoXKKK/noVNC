@@ -341,7 +341,7 @@ const UI = {
     },
 
     addFileTransferHandlers() {
-        document.getElementById("noVNC_clipboard_button")
+        document.getElementById("noVNC_filetransfer_button")
             .addEventListener('click', UI.toggleFilePanel);
     },
 
@@ -848,6 +848,7 @@ const UI = {
         UI.closeSettingsPanel();
         UI.closePowerPanel();
         UI.closeClipboardPanel();
+        UI.closeFilePanel();
         UI.closeExtraKeys();
     },
 

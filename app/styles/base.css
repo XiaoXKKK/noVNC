@@ -649,6 +649,22 @@ html {
   max-height: calc(100vh - 10em - 25px);
 }
 
+/* FileTransfer */
+:root:not(.noVNC_connected) #noVNC_filetransfer_button {
+    display: none;
+  }
+  
+#noVNC_filetransfer_text {
+width: 360px;
+min-width: 150px;
+height: 160px;
+min-height: 70px;
+box-sizing: border-box;
+max-width: 100%;
+/* minus approximate height of title, height of subtitle, and margin */
+max-height: calc(100vh - 10em - 25px);
+}
+
 /* Settings */
 #noVNC_settings {
 }
