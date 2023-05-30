@@ -75,6 +75,7 @@
                 id="noVNC_view_drag_button" class="noVNC_button noVNC_hidden"
                 title="Move/Drag Viewport">
 
+            
             <!--noVNC Touch Device only buttons-->
             <div id="noVNC_mobile_buttons">
                 <input type="image" alt="Keyboard" src="app/images/keyboard.svg"
@@ -137,6 +138,25 @@
                 </p>
                 <textarea id="noVNC_clipboard_text" rows=5></textarea>
             </div>
+            </div>
+
+            <!-- FileTransfer -->
+            <input type="image" alt="FileTransfer" src="app/images/file.svg"
+            id="noVNC_filetransfer_button" class="noVNC_button"
+            title="FileTransfer"> 
+            <div class="noVNC_vcenter">
+                <div id="noVNC_filetransfer" class="noVNC_panel">
+                    <div class="noVNC_heading">
+                        <img alt="" src="app/images/file.svg"> FileTransfer
+                    </div>
+                </div>
+                <p class="noVNC_subheading">
+                    Upload File
+                </p>
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <div><input type="file" name="file" id="noVNC_filetransfer_file"></div>
+                    <div><input type="submit" value="上传"></div>
+                </form>
             </div>
 
             <!-- Toggle fullscreen -->
