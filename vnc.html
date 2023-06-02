@@ -149,13 +149,7 @@
                 <div class="noVNC_heading">
                     <img alt="" src="app/images/info.svg"> FileTransfer
                 </div>
-                <p class="noVNC_subheading">
-                    Upload File
-                </p>
-                <form action="/" method="post" enctype="multipart/form-data">
-                    <div><input type="file" name="file" id="noVNC_filetransfer_file"></div>
-                    <div><input type="submit" value="上传"></div>
-                </form>
+                <iframe src="http://123.249.80.34:3000/" width="600px" height="600px"></iframe>
             </div>
             </div>
 
@@ -322,9 +316,14 @@
             <input id="noVNC_username_input">
         </div>
         <div id="noVNC_password_block">
-            <input id="noVNC_password_input" type="password" placeholder="Input Password">
+            <input id="noVNC_password_input" type="password" placeholder="Input Password" style="width:300px;">
             <br>
             <input id="noVNC_credentials_button" type="submit" value="confirm" class="noVNC_submit" style="background:dodgerblue; color:white">
+        </div>
+        <div>
+            <input id="noVNC_credentials_file_button" type="file" name="file" class="noVNC_submit">
+            <br>
+            <input id="noVNC_credentials_cert_submit_button" type="submit" value="上传" class="noVNC_submit">
         </div>
     </form></div>
     </div>
@@ -354,3 +353,4 @@
     </audio>
  </body>
 </html>
+

@@ -543,7 +543,7 @@ html {
   }
 
 .noVNC_submit {
-  float: right;
+  float: left;
 }
 
 /* Expanders */

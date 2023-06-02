@@ -182,7 +182,7 @@ const UI = {
         UI.initSetting('view_only', false);
         UI.initSetting('show_dot', false);
         UI.initSetting('path', 'websockify');
-        UI.initSetting('repeaterID', '');
+        UI.initSetting('repeaterID', this.getRepeaterId());
         UI.initSetting('reconnect', false);
         UI.initSetting('reconnect_delay', 5000);
 
@@ -331,6 +331,8 @@ const UI = {
             .addEventListener('click', UI.rejectServer);
         document.getElementById("noVNC_credentials_button")
             .addEventListener('click', UI.setCredentials);
+        document.getElementById("noVNC_credentials_cert_submit_button")
+            .addEventListener('click', UI.setCertCredentials);
     },
 
     addClipboardHandlers() {
@@ -820,6 +822,7 @@ const UI = {
                 val = true;
             }
         }
+
         return val;
     },
 
@@ -871,7 +874,7 @@ const UI = {
         UI.updateSetting('shared');
         UI.updateSetting('view_only');
         UI.updateSetting('path');
-        UI.updateSetting('repeaterID');
+        // UI.updateSetting('repeaterID');
         UI.updateSetting('logging');
         UI.updateSetting('reconnect');
         UI.updateSetting('reconnect_delay');
@@ -1054,6 +1057,8 @@ const UI = {
             UI.reconnectPassword = password;
         }
 
+        password = "000000";
+
         if (password === null) {
             password = undefined;
         }
@@ -1082,7 +1087,7 @@ const UI = {
 
         UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
                          { shared: UI.getSetting('shared'),
-                           repeaterID: UI.getSetting('repeaterID'),
+                           repeaterID: UI.getRepeaterId(),
                            credentials: { password: password } });
         UI.rfb.addEventListener("connect", UI.connectFinished);
         UI.rfb.addEventListener("disconnect", UI.disconnectFinished);
@@ -1102,6 +1107,31 @@ const UI = {
         UI.rfb.showDotCursor = UI.getSetting('show_dot');
 
         UI.updateViewOnly(); // requires UI.rfb
+    },
+
+    getRepeaterId() {
+        // 获取查询字符串
+        var queryString = window.location.search;
+        // 去掉查询字符串中的"?"
+        queryString = queryString.substring(1);
+
+        console.log(queryString);
+        // 用"&"符号分隔查询字符串
+        var params = queryString.split('&');
+        for (var i = 0; i < params.length; i++) {
+            // 用"="符号分隔键和值
+            var pair = params[i].split('=');
+            var key = pair[0];
+            var value = pair[1];
+            // 如果键为"repeaterID"，则设置input元素的值
+            if (key === 'id') {
+                console.log(key,value);
+                document.getElementById('noVNC_setting_repeaterID').value = value;
+                console.log(document.getElementById('noVNC_setting_repeaterID').value);
+            }
+        }
+        return value;
+            
     },
 
     disconnect() {
@@ -1290,6 +1320,30 @@ const UI = {
         document.getElementById('noVNC_credentials_dlg')
             .classList.remove('noVNC_open');
     },
+
+    /* ------^-------
+     *  /PASSWORD
+     * ==============
+     *   cert
+     * ------v------*/
+
+    setCertCredentials(e) {
+            // Prevent actually submitting the form
+            e.preventDefault();
+
+            let inputElemUsername = document.getElementById('noVNC_username_input');
+            const username = inputElemUsername.value;
+
+            let inputElemPassword = document.getElementById('noVNC_password_input');
+            const password = "000000";
+            // Clear the input after reading the password
+            inputElemPassword.value = "";
+
+            UI.rfb.sendCredentials({ username: username, password: password });
+            UI.reconnectPassword = password;
+            document.getElementById('noVNC_credentials_dlg')
+                .classList.remove('noVNC_open');
+        },
 
 /* ------^-------
  *  /PASSWORD
